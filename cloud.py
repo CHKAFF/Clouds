@@ -3,7 +3,8 @@ import sys
 import os
 import hashlib
 import argparse
-
+from paint import paint
+from class_help import help_parser
 
 def main(args):
     command = sys.argv[1:][0]
@@ -143,46 +144,8 @@ def get_hash_md5(f):
         m.update(data)
     return m.hexdigest()
 
-
-def create_parser():
-    parser = argparse.ArgumentParser()
-    subparsers = parser.add_subparsers(dest="command")
-    add_reg_parser(subparsers)
-    add_list_parser(subparsers)
-    add_dir_parser(subparsers)
-    return parser
-
-
-def add_list_parser(subparsers):
-    list_parser = subparsers.add_parser("list",
-                                        help="Возвращает список файлов, которые изменились после последней загрузки в "
-                                             "облако")
-    add_basic_argument(list_parser)
-    list_parser.add_argument('paths', help="Paths to catalog or file", nargs='+')
-
-
-def add_dir_parser(subparsers):
-    dir_parser = subparsers.add_parser("dir", help="Возвращает файлы, расположенные в облаке")
-    add_basic_argument(dir_parser)
-    dir_parser.add_argument('username_or_access_token', action='store')
-
-
-def add_reg_parser(subparsers):
-    reg_parser = subparsers.add_parser("reg",
-                                       help="Позволяет запомнить токен и использовать его дальше при помощи "
-                                            "указанного имени")
-    reg_parser.add_argument('cloud', action='store', help="Сloud name", choices=['dropbox'])
-    reg_parser.add_argument('username', action='store', help="User name")
-    reg_parser.add_argument('token', action='store', help="access token for cloud")
-
-
-def add_basic_argument(subparser):
-    subparser.add_argument('cloud', action='store', help="Сloud name", choices=['dropbox'])
-
-
 if __name__ == '__main__':
-    parser = create_parser()
-    args = parser.parse_args(sys.argv[1:])
+    args = help_parser().parser.parse_args(sys.argv[1:])
     if not args.command:
         sys.exit("Обратитесь за справкой: python program.py [-h]")
     main(parser.parse_args(sys.argv[1:]))
