@@ -3,69 +3,22 @@ import sys
 import os
 import hashlib
 import argparse
-from paint import paint
+from paint import console_write
 from class_help import help_parser
+from command_dir import command_dir
+from command_reg import command_reg
+from enum import Enum
 
 def main(args):
     command = sys.argv[1:][0]
+    result = []
     if command == "list":
         command_list(args)
     elif command == "dir":
-        command_dir(args)
+        result = command_dir(args).result
     elif command == "reg":
-        command_reg(args)
-    print("---------------------")
-
-
-def command_reg(args):
-    print("Reg:")
-    print("---------------------")
-    if check_username(args.cloud + ":" + args.username) is not None:
-        print("Пользователь с таким ником уже существует")
-        return
-    with open("usertokenlist.txt", "a") as f:
-        f.write('\n' + args.cloud + ":" + args.username + ":" + args.token)
-        print("Успешно!")
-
-
-def check_username(logname):
-    with open("usertokenlist.txt", "r") as f:
-        for line in f:
-            if logname in line:
-                return line.split(':')[2]
-    return None
-
-
-def command_dir(args):
-    if args.cloud == 'dropbox':
-        print("Dropbox:")
-        print("---------------------")
-        token = check_username(args.cloud + ":" + args.username_or_access_token)
-        if token is None:
-            token = args.username_or_access_token
-        print_contain_dropbox(token, 0, "")
-
-
-def print_contain_dropbox(access_token, indentation, path):
-    try:
-        files = requests.post('https://api.dropboxapi.com/2/files/list_folder',
-                              headers={"Authorization": "Bearer " + access_token, "Content-Type": "application/json"},
-                              data="{\"path\": \"" + path + "\",\"recursive\": false,\"include_media_info\": false,"
-                                                            "\"include_deleted\": false,"
-                                                            "\"include_has_explicit_shared_members\": false,"
-                                                            "\"include_mounted_folders\": true,"
-                                                            "\"include_non_downloadable_files\": true}").json()
-        for f in files['entries']:
-            if f['.tag'] == 'folder':
-                print(" " * indentation + 'FOLDER: ' + f['name'])
-                print_contain_dropbox(access_token, indentation + 4, path + "/" + f['name'])
-            else:
-                print(" " * indentation + f['name'])
-    except:
-        print("Ошибка:")
-        print("    Недействительный access_token")
-        return
-
+        result = command_reg(args).result
+    return result
 
 def command_list(args):
     name_hashlist = args.cloud + "hashlist.txt"
@@ -145,7 +98,9 @@ def get_hash_md5(f):
     return m.hexdigest()
 
 if __name__ == '__main__':
-    args = help_parser().parser.parse_args(sys.argv[1:])
+    parser = help_parser().parser
+    args = parser.parse_args(sys.argv[1:])
     if not args.command:
         sys.exit("Обратитесь за справкой: python program.py [-h]")
-    main(parser.parse_args(sys.argv[1:]))
+    console = console_write(main(parser.parse_args(sys.argv[1:])))
+    console.write()
