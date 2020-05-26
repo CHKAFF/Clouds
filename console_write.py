@@ -4,6 +4,8 @@ class console_write(object):
         self.parameter_list = parameter_list
 
     def write(self):
+        if self.parameter_list == []:
+            return
         command = self.parameter_list[0]
         if command == "Reg":
             self.command_reg(self.parameter_list[1])
@@ -15,10 +17,12 @@ class console_write(object):
         print("Dropbox:")
         print("---------------------")
         if answer:
-            pass
+            for e in self.parameter_list[1:-1]:
+                print(e)
         else:
             print("Ошибка:")
-            print("    Недействительный access_token")
+            print('''    Пользователя с такким именем не существет, либо access_token указа не верно.
+            Попробуйте зараегистрировться ещё раз(Справка: python cloud.py reg -h)''')
 
     def command_list(self):
         pass

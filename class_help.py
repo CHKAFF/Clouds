@@ -1,7 +1,5 @@
 import argparse
 
-
-
 class help_parser(object):
 
     def __init__(self):
@@ -13,7 +11,6 @@ class help_parser(object):
                                                 "указанного имени")
         reg_parser.add_argument('cloud', action='store', help="Сloud name", choices=['dropbox'])
         reg_parser.add_argument('username', action='store', help="User name")
-        reg_parser.add_argument('token', action='store', help="access token for cloud")
 
         list_parser = subparsers.add_parser("list",
                                             help="Возвращает список файлов, которые изменились после последней загрузки в "
@@ -23,5 +20,4 @@ class help_parser(object):
 
         dir_parser = subparsers.add_parser("dir", help="Возвращает файлы, расположенные в облаке")
         dir_parser.add_argument('cloud', action='store', help="Сloud name", choices=['dropbox'])
-        dir_parser.add_argument('username_or_access_token', action='store')
-        
+        dir_parser.add_argument('username', action='store')
