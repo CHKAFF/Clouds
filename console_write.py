@@ -11,7 +11,23 @@ class console_write(object):
             self.command_reg(self.parameter_list[1])
         elif command == "Dir":
             self.command_dir(self.parameter_list[-1])
+        elif command == "Download":
+            self.command_download()
         print("---------------------")
+
+
+    def command_download(self):
+        print("Download(Dropbox)")
+        print("---------------------")
+        if self.parameter_list[-1]:
+            for f in self.parameter_list[1:-1]:
+                if f[1]:
+                    print(f[0] + " | Успешно!")
+                else:
+                    print(f[0] + " | " + f[2])
+        else:
+            print("Сбой.")
+
 
     def command_dir(self, answer):
         print("Dropbox:")

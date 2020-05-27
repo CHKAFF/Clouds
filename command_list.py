@@ -30,10 +30,9 @@ class command_list(object):
                         print(change.split(':')[0])
 
     def get_changes_list(self, path, new_hashlist, name_hashlist):
-        f = open(path + '/' + name_hashlist, 'r')
-        hashlist = f.read().splitlines()
-        changes = [x for x in new_hashlist if x not in hashlist]
-        f.close()
+        with open(path + '/' + name_hashlist, 'r') as f:
+            hashlist = f.read().splitlines()
+            changes = [x for x in new_hashlist if x not in hashlist]
         return changes
 
 
@@ -54,9 +53,8 @@ class command_list(object):
 
 
     def set_hashlist(self, files, path, name_hashlist):
-        hashlist = open(path + '/' + name_hashlist, 'w')
-        self.set_new_line_in_hashlist(path, hashlist, files, "")
-        hashlist.close()
+        with open(path + '/' + name_hashlist, 'w') as h:
+            self.set_new_line_in_hashlist(path, h, files, "")
 
 
     def set_new_line_in_hashlist(self, path, hashlist, files, prepath):

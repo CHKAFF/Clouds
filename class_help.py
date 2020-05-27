@@ -21,3 +21,9 @@ class help_parser(object):
         dir_parser = subparsers.add_parser("dir", help="Возвращает файлы, расположенные в облаке")
         dir_parser.add_argument('cloud', action='store', help="Сloud name", choices=['dropbox'])
         dir_parser.add_argument('username', action='store')
+
+        download_parser = subparsers.add_parser("download", help="Позволяет скачать файлы или папки из облака")
+        download_parser.add_argument('cloud', action='store', help="Сloud name", choices=['dropbox'])
+        download_parser.add_argument('username', action='store')
+        download_parser.add_argument('path', action='store', help="Path for download")
+        download_parser.add_argument('file_names', help="Catalog or file name", nargs='+')
