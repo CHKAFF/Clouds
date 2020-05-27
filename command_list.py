@@ -1,4 +1,5 @@
 import os
+import hashlib
 
 class command_list(object):
 
