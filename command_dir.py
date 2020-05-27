@@ -1,24 +1,15 @@
 import requests
 class command_dir(object):
 
-    def __init__(self, args):
+    def __init__(self, args, token):
         self.result = ["Dir"]
         if args.cloud == 'dropbox':
-            token = self.check_username(args.cloud + ":" + args.username)
             if token is None:
                 self.result.append(False)
                 return
             self.contain_dropbox(token, 0, "")
             if len(self.result) != 2:
                 self.result.append(True)
-
-
-    def check_username(self, logname):
-        with open("usertokenlist.txt", "r") as f:
-            for line in f:
-                if logname in line:
-                    return line.split(':')[2]
-        return None
 
     def contain_dropbox(self, access_token, indentation, path):
         try:

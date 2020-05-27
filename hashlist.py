@@ -5,6 +5,13 @@ class hashlist(object):
 
     def __init__(self, cloud):
         self.name_hashlist = cloud + "hashlist.txt"
+        self.hashlist = []
+
+
+    def new_hashlist(self, path):
+        self.set_hashlist([], path)
+        self.set_line_new_hashlist(path, self.hashlist, files, "")
+    
 
     def get_changes_list(self, path, new_hashlist):
         with open(path + '/' + self.name_hashlist, 'r') as f:

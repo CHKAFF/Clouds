@@ -4,25 +4,25 @@ import os
 import hashlib
 from console_write import console_write
 from class_help import help_parser
-from command_dir import command_dir
 from command_reg import command_reg
 from command_list import command_list
-from command_download import command_download
-from command_upload import command_upload
+from dropbox import dropbox
 
 def main(args):
     command = sys.argv[1:][0]
     result = []
     if command == "list":
-        command_list(args)
-    elif command == "dir":
-        result = command_dir(args).result
+        result = command_list(args).result
     elif command == "reg":
         result = command_reg(args).result
+    else:
+        cloud = dropbox(args)
+    if command == "dir":
+        result = cloud.dir()
     elif command == "download":
-        result = command_download(args).result
+        result = cloud.download()
     elif command == "upload":
-        result = command_upload(args).result 
+        result = cloud.upload()
     return result
 
 

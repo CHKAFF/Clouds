@@ -8,15 +8,18 @@ class console_write(object):
             return
         command = self.parameter_list[0]
         if command == "Reg":
-            self.command_reg(self.parameter_list[1])
+            self.command_reg()
         elif command == "Dir":
-            self.command_dir(self.parameter_list[-1])
+            self.command_dir()
+        elif command == "List":
+            self.command_list()
         elif command == "Download":
             self.command_download()
         print("---------------------")
 
 
     def command_download(self):
+        print("---------------------")
         print("Download(Dropbox)")
         print("---------------------")
         if self.parameter_list[-1]:
@@ -29,10 +32,10 @@ class console_write(object):
             print("Сбой.")
 
 
-    def command_dir(self, answer):
+    def command_dir(self):
         print("Dropbox:")
         print("---------------------")
-        if answer:
+        if self.parameter_list[-1]:
             for e in self.parameter_list[1:-1]:
                 print(e)
         else:
@@ -41,12 +44,23 @@ class console_write(object):
             Попробуйте зараегистрировться ещё раз(Справка: python cloud.py reg -h)''')
 
     def command_list(self):
-        pass
+        print("---------------------")
+        print("Каталог: " + self.parameter_list[1])
+        print("---------------------")
+        if self.parameter_list[-1]:
+            for p in self.parameter_list[2:-1]:
+                print(p)
+        else:
+            if self.parameter_list[-2] == 1:
+                print("В каталоге нет изменений")
+            else:
+                print("Данного каталога не существует")
 
-    def command_reg(self, answer):
+    def command_reg(self):
+        print("---------------------")
         print("Reg:")
         print("---------------------")
-        if answer:
+        if self.parameter_list[-1]:
             print("Успешно!")
         else:
             print("Пользователь с таким ником уже существует")

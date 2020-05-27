@@ -4,9 +4,9 @@ import shutil
 
 class command_download(object):
 
-    def __init__(self, args):
+    def __init__(self, args, access_token):
         self.result = ["Download"]
-        self.access_token = self.check_username(args.cloud + ":" + args.username)
+        self.access_token = access_token
         if self.access_token is None:
             self.result.append(False)
         else:
@@ -56,11 +56,3 @@ class command_download(object):
                 self.result.append([f, True])
             except:
                 self.result.append([f, False, "Сбой. Неправильо указан путь для загрузки"])
-
-
-    def check_username(self, logname):
-        with open("usertokenlist.txt", "r") as f:
-            for line in f:
-                if logname in line:
-                    return line.split(':')[2]
-        return None

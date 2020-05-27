@@ -16,7 +16,7 @@ class help_parser(object):
                                             help="Возвращает список файлов, которые изменились после последней загрузки в "
                                                  "облако")
         list_parser.add_argument('cloud', action='store', help="Сloud name", choices=['dropbox'])
-        list_parser.add_argument('paths', help="Paths to catalog or file", nargs='+')
+        list_parser.add_argument('path', help="Path to catalog or file")
 
         dir_parser = subparsers.add_parser("dir", help="Возвращает файлы, расположенные в облаке")
         dir_parser.add_argument('cloud', action='store', help="Сloud name", choices=['dropbox'])
