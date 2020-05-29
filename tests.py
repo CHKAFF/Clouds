@@ -20,22 +20,36 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(expected, actual)
 
     def test_dir_with_not_correct_username(self):
-        result = command_dir(args("d", "d")).result
+        result = command_dir(args("d", "d", ["fdfd"])).result
         self.assertEqual(result[-1], False)
 
     def test_download_with_not_correct_username(self):
-        result = command_download(args("d", "d")).result
+        result = command_download(args("d", "d", ["fdfd"])).result
         self.assertEqual(result[-1], False)
 
     def test_upload_with_not_correct_username(self):
-        result = command_download(args("d", "d")).result
+        result = command_download(args("d", "d", ["fdfd"])).result
         self.assertEqual(result[-1], False)
     
     def test_download_with_not_correct_path(self):
         result = command_download(args("rex", "d", ["fdfd"])).result
         self.assertEqual(result[-2], False)
         self.assertEqual(result[-1], "Сбой. Неправильо указан путь для загрузки")
+    
+    def test_download_with_not_correct_path_on_cloud(self):
+        result = command_download(args("rex", "C:\Users", ["fdfd"])).result
+        self.assertEqual(result[-2], False)
+        self.assertEqual(result[-1], "Сбой. Неправильный путь к файлу или его имя")
 
+    def test_upload_with_not_correct_path(self):
+        result = command_download(args("rex", "d", ["fdfd"])).result
+        self.assertEqual(result[-2], "Файла или Дирректории не существует")
+        self.assertEqual(result[-1], False)
+
+    def test_list_with_not_correct_path(self):
+        result = command_list(args("rex", "d", ["fdfd"])).result
+        self.assertEqual(result[-2], 0)
+        self.assertEqual(result[-1], False)
 
 if __name__ == '__main__':
     unittest.main()
