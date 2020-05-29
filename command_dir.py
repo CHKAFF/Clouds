@@ -1,13 +1,13 @@
 import requests
 class command_dir(object):
 
-    def __init__(self, args, token):
+    def __init__(self, args, token, prepath):
         self.result = ["Dir"]
         if args.cloud == 'dropbox':
             if token is None:
                 self.result.append(False)
                 return
-            self.contain_dropbox(token, 0, "")
+            self.contain_dropbox(token, 0, prepath)
             if len(self.result) != 2:
                 self.result.append(True)
 

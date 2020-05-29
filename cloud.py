@@ -12,7 +12,7 @@ def main(args):
     command = sys.argv[1:][0]
     result = []
     if command == "list":
-        result = command_list(args).result
+        result = command_list(args, args.path).result
     elif command == "reg":
         result = command_reg(args).result
     else:

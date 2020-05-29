@@ -24,9 +24,10 @@ class command_download(object):
             try:
                 if f in files_in_directory:
                     answer = input("\n" + f + " - Этот файл уже заходится в этой директории, хотите перезаписать его?[Y/N]")
-                    if answer == "y" or "Y":
+                    if answer == "y" or answer == "Y":
                         os.remove(path + "/" + f)
                     else:
+                        self.result.append([f, False, "Загрузка отменена"])
                         continue
             except:
                 shutil.rmtree(path + "/" + f)
@@ -39,6 +40,9 @@ class command_download(object):
                                                                 "\"include_has_explicit_shared_members\": false,"
                                                                 "\"include_mounted_folders\": true,"
                                                                 "\"include_non_downloadable_files\": true}").json()
+                if 'error' in fls.keys():
+                    self.result.append([f, False, "Сбой. Неправильный путь к файлу или его имя"])
+                    continue
                 for e in fls['entries']:
                     files.append(f+ "/" + e['name'])
                 os.mkdir(path+"/"+f)

@@ -3,14 +3,13 @@ import hashlib
 from hashlist import hashlist
 class command_list(object):
 
-    def __init__(self, args):
-        path = args.path
+    def __init__(self, args, path):
         self.result = ['List', path]
         h = hashlist(args.cloud)
         try:
             files = os.listdir(path)
         except:
-            self.result.append("Данного каталога не существует")
+            self.result.append(0)
             self.result.append(False)
             return
         if h.name_hashlist not in files:
@@ -24,7 +23,7 @@ class command_list(object):
             new_hashlist = h.get_new_hashlist(files, path)
             changes = h.get_changes_list(path, new_hashlist)
             if len(changes) == 0:
-                self.result.append("В каталоге нет изменений.")
+                self.result.append(1)
                 self.result.append(False)
                 return
             else:
