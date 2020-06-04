@@ -8,7 +8,8 @@ import re
 class dropbox(object):
     
     def __init__(self, args):
-        self.access_token = self.check_username(args.cloud + ":" + args.username)
+        longname = args.cloud + ":" + args.username
+        self.access_token = self.check_username(longname)
         self.args = args
 
     def check_username(self, logname):

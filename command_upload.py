@@ -40,9 +40,11 @@ class command_upload(object):
             d = command_dir(self.args, self.access_token, path).result[:-1]
             for dr in d:
                 if name in dr:
-                    answer = input(p + ' - уже был загружен на облако. Хотите загрузить его повторно[Y/N]')
+                    answer = input(p + '- уже был загружен на облако. Хотите '
+                                       'загрузить его повторно[Y/N]')
                     if answer == "Y" or answer == "y":
-                        answer = input('Перезапистать его - Y, Создать копию - N: ')
+                        answer = input('Перезапистать его - Y, Создать копию '
+                                       '- N: ')
                         if answer == "Y" or answer == "y":
                             flag = "false"
                         else:

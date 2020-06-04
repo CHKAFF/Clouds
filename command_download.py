@@ -19,11 +19,14 @@ class command_download(object):
             try:
                 files_in_directory = os.listdir(path)
             except:
-                self.result.append([f, False, "Сбой. Неправильо указан путь для загрузки"])
+                self.result.append([f, False, "Сбой. Неправильо указан путь "
+                                              "для загрузки"])
                 continue
             try:
                 if f in files_in_directory:
-                    answer = input("\n" + f + " - Этот файл уже заходится в этой директории, хотите перезаписать его?[Y/N]")
+                    answer = input("\n" + f + "- Этот файл уже заходится в "
+                                              "этой директории, хотите "
+                                              "перезаписать его?[Y/N]")
                     if answer == "y" or answer == "Y":
                         os.remove(path + "/" + f)
                     else:
@@ -41,7 +44,8 @@ class command_download(object):
                                                                 "\"include_mounted_folders\": true,"
                                                                 "\"include_non_downloadable_files\": true}").json()
                 if 'error' in fls.keys():
-                    self.result.append([f, False, "Сбой. Неправильный путь к файлу или его имя"])
+                    self.result.append([f, False, "Сбой. Неправильный путь к "
+                                                  "файлу или его имя"])
                     continue
                 for e in fls['entries']:
                     files.append(f+ "/" + e['name'])
@@ -50,13 +54,16 @@ class command_download(object):
                 self.download(files,path)
                 continue
             r = requests.get('https://content.dropboxapi.com/2/files/download',
-                                headers={"Authorization": "Bearer " + self.access_token, "Dropbox-API-Arg": "{\"path\": \"/" + f + "\"}"})
+                                headers={"Authorization": "Bearer " + self.access_token,
+                                         "Dropbox-API-Arg": "{\"path\": \"/" + f + "\"}"})
             if "error" in r.text:
-                self.result.append([f, False, "Сбой. Неправильный путь к файлу или его имя"])
+                self.result.append([f, False, "Сбой. Неправильный путь к "
+                                              "файлу или его имя"])
                 continue
             try:
                 with open(path + '/' + f, "wb") as code:
                     code.write(r.content)
                 self.result.append([f, True])
             except:
-                self.result.append([f, False, "Сбой. Неправильо указан путь для загрузки"])
+                self.result.append([f, False, "Сбой. Неправильо указан путь "
+                                              "для загрузки"])

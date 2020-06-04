@@ -33,7 +33,9 @@ class hashlist(object):
                     new_hashlist.append(prepath + fl + ":" + self.get_hash_md5(f))
             except:
                 new_path = path + "/" + fl
-                self.set_line_new_hashlist(new_path, new_hashlist, os.listdir(new_path), prepath + fl + "/")
+                self.set_line_new_hashlist(new_path, new_hashlist,
+                                           os.listdir(new_path),
+                                           prepath + fl + "/")
 
 
     def set_hashlist(self, files, path):
@@ -48,7 +50,9 @@ class hashlist(object):
                     hashlist.write(prepath + fl + ":" + get_hash_md5(f) + "\n")
             except:
                 new_path = path + "/" + fl
-                self.set_new_line_in_hashlist(new_path, hashlist, os.listdir(new_path), prepath + fl + "/")
+                self.set_new_line_in_hashlist(new_path, hashlist,
+                                              os.listdir(new_path),
+                                              prepath + fl + "/")
     
 
     def get_hash_md5(self, f):

@@ -23,7 +23,8 @@ class command_dir(object):
             for f in files['entries']:
                 if f['.tag'] == 'folder':
                     self.result.append(" " * indentation + 'FOLDER: ' + f['name'])
-                    self.contain_dropbox(access_token, indentation + 4, path + "/" + f['name'])
+                    self.contain_dropbox(access_token, indentation + 4,
+                                         path + "/" + f['name'])
                 else:
                     self.result.append(" " * indentation + f['name'])
         except:

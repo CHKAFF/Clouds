@@ -6,8 +6,10 @@ class command_reg(object):
         if self.check_username(args.cloud + ":" + args.username) is not None:
             self.result = ["Reg", False]
         else:
-            webbrowser.open("https://www.dropbox.com/oauth2/authorize?client_id=pkrfs6p9e5s3u84&response_type=code")
-            authorization_code = input("Введите код полученый при авторизации: ")
+            webbrowser.open("https://www.dropbox.com/oauth2/authorize"
+                            "?client_id=pkrfs6p9e5s3u84&response_type=code")
+            authorization_code = input("Введите код полученый при "
+                                       "авторизации: ")
             r = requests.post("https://api.dropboxapi.com/oauth2/token", data={
                 "code": authorization_code,
                 "grant_type": "authorization_code",
