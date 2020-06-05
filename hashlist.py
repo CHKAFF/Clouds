@@ -47,7 +47,9 @@ class hashlist:
                     hashlist.write(prepath + fl + ":" + get_hash_md5(f) + "\n")
             except:
                 new_path = path + "/" + fl
-                self.set_new_line_in_hashlist(new_path, hashlist, os.listdir(new_path), prepath + fl + "/")
+                self.set_new_line_in_hashlist(new_path, hashlist,
+                                              os.listdir(new_path),
+                                              prepath + fl + "/")
     
 
     def get_hash_md5(self, f):
