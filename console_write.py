@@ -6,7 +6,10 @@ class console_write:
     def write(self):
         if self.parameter_list == []:
             return
-        commands = {"Reg": self.command_reg, "Dir": self.command_dir, "List": self.command_list, "Download": self.command_download, "Upload": self.command_upload}
+        commands = {
+            "Reg": self.command_reg, "Dir": self.command_dir,
+            "List": self.command_list, "Download": self.command_download,
+            "Upload": self.command_upload}
         commands[self.parameter_list[0]]()
         print("---------------------")
 
@@ -36,7 +39,6 @@ class console_write:
         else:
             print("Сбой. Пользователя с такким именем не существет.")
 
-
     def command_dir(self):
         print("Dropbox:")
         print("---------------------")
@@ -45,7 +47,7 @@ class console_write:
                 print(e)
         else:
             print("Ошибка:")
-            print('''Пользователя с такким именем не существет. Попробуйте 
+            print('''Пользователя с такким именем не существет. Попробуйте
             зараегистрировться ещё раз(Справка: python cloud.py reg -h)''')
 
     def command_list(self):
@@ -69,5 +71,3 @@ class console_write:
             print("Успешно!")
         else:
             print("Пользователь с таким ником уже существует")
-
-    
