@@ -3,8 +3,8 @@ import hashlib
 
 class hashlist:
 
-    def __init__(self, cloud):
-        self.name_hashlist = cloud + "hashlist.txt"
+    def __init__(self, name_hashlist):
+        self.name_hashlist = name_hashlist
         self.hashlist = []
 
 

@@ -1,8 +1,10 @@
 import requests
+from hashlist import hashlist
 import argparse
 import sys
 import os
 import hashlib
+import webbrowser
 from console_write import console_write
 from dropbox import dropbox
 
@@ -21,10 +23,10 @@ def main(args):
     return result
 
 
-def command_list(self, args):
+def command_list(args):
     path = args.path
     result = ['List', path]
-    h = hashlist(args.cloud)
+    h = hashlist(args.cloud + "hashlist.txt")
     if not os.path.isdir(path):
         result.append(0)
         result.append(False)
@@ -69,7 +71,7 @@ def reg(args):
         result = ["Reg", True]
     return result
 
-def check_username(self, logname):
+def check_username(logname):
     with open("usertokenlist.txt", "r") as f:
         for line in f:
             if logname in line:
