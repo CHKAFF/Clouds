@@ -1,7 +1,7 @@
 import os
 import hashlib
 
-class hashlist(object):
+class hashlist:
 
     def __init__(self, cloud):
         self.name_hashlist = cloud + "hashlist.txt"
@@ -21,9 +21,7 @@ class hashlist(object):
 
 
     def get_new_hashlist(self, files, path):
-        new_hashlist = []
-        self.set_line_new_hashlist(path, new_hashlist, files, "")
-        return new_hashlist
+        return self.set_line_new_hashlist(path, [], files, "")
 
 
     def set_line_new_hashlist(self, path, new_hashlist, files, prepath):
@@ -34,6 +32,7 @@ class hashlist(object):
             except:
                 new_path = path + "/" + fl
                 self.set_line_new_hashlist(new_path, new_hashlist, os.listdir(new_path), prepath + fl + "/")
+        return new_hashlist
 
 
     def set_hashlist(self, files, path):

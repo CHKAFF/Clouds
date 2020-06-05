@@ -1,4 +1,4 @@
-class console_write(object):
+class console_write:
 
     def __init__(self, parameter_list):
         self.parameter_list = parameter_list
@@ -6,17 +6,8 @@ class console_write(object):
     def write(self):
         if self.parameter_list == []:
             return
-        command = self.parameter_list[0]
-        if command == "Reg":
-            self.command_reg()
-        elif command == "Dir":
-            self.command_dir()
-        elif command == "List":
-            self.command_list()
-        elif command == "Download":
-            self.command_download()
-        elif command == "Upload":
-            self.command_upload()
+        commands = {"Reg": self.command_reg, "Dir": self.command_dir, "List": self.command_list, "Download": self.command_download, "Upload": self.command_upload}
+        commands[self.parameter_list[0]]()
         print("---------------------")
 
     def command_upload(self):
@@ -25,10 +16,10 @@ class console_write(object):
         print("---------------------")
         if self.parameter_list[-1]:
             for f in self.parameter_list[1:-1]:
-                if f[-1]:
+                if f[1]:
                     print(f[0] + " | Успешно!")
                 else:
-                    print(f[0] + " | " + f[1])
+                    print(f[0] + " | " + f[-1])
         else:
             print("Сбой. Пользователя с такким именем не существет.")
 
