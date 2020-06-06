@@ -22,6 +22,7 @@ def main(args):
             "dir": cloud.dir, "download": cloud.download,
             "upload": cloud.upload}
         result = commands[command]()
+
     return result
 
 

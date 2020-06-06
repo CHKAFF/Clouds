@@ -18,11 +18,8 @@
 
 ## Состав
 * Консольная версия: `cloud.py`
-* Файлы для работы с Dropbox: `dropbox.py`,`command_dir.py`,`command_download.py`,`command_upload.py`
-* Обработчик команды REG: `command_reg.py`
-* Обработчик команды list: `command_list.py`
+* Файлы для работы с Dropbox: `dropbox.py`
 * Осуществляет взаимодействие с Hashlist: `hashlist.py`
-* Заполнение справки по работе: `help_parser.py`
 * Файл для хранения токенов: `usertokenlist.txt`
 * Тесты: `tests.py`
 
